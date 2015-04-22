@@ -25,7 +25,7 @@ class LoginSpider(scrapy.Spider):
             print "fehlerhaftes passwort"
             return
         if "Du hast einen fehlerhaften Benutzernamen angegeben" in response.body:
-            print "fehlerhhttps://www.premium-cola.de/board/viewtopic.php?f=354&t=1230&sid=1a9a300b2b03dd69c16fa0806fb53e07after name"
+            print "fehler after name"
             return
         else:
             return scrapy.Request(url="https://www.premium-cola.de/board/viewtopic.php?f=354&t=1230",
