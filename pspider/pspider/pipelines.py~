@@ -9,6 +9,3 @@
 class PspiderPipeline(object):
     def process_item(self, item, spider):
         return item
-
-
-# example here http://stackoverflow.com/questions/10845839/writing-items-to-a-mysql-database-in-scrapy
