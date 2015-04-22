@@ -48,13 +48,9 @@ class LoginSpider(scrapy.Spider):
         print site['topic']       
         posts=response.xpath('//div[@class="postbody"]')
         for index, post in enumerate(posts):
-            l=ItemLoader(item=PostItem(), response=index)
-            l.add_xpath('user', './/p[@class="author"]//a/text()')
-            l.add_xpath ('text', './/div[@class="content"]/text()')   
-            l.add_xpath ('timestamp', './/div[@class="content"]/text()')           
+                
             args=(index, post.xpath('.//p[@class="author"]//a/text()').extract()[0],post.xpath('.//div[@class="content"]/text()').extract(), post.xpath('.//p[@class="author"]/text()').extract()[1])
-            post=PostItem()
-            post['user']= post.xpath('.//p[@class="author"]//a/text()').extract()[0]
+            
             print "post topic is post number %d is from %s and containts %s and timestamp %s \n \n" % args
 
 
