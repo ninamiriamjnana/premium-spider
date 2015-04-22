@@ -10,12 +10,12 @@ import scrapy
 
 class PostItem(scrapy.Item):
     user=scrapy.Field()
-	timestamp=scrapy.Field()
-	topic=scrapy.Field()
-	text=scrapy.Field()
+    timestamp=scrapy.Field()
+    topic=scrapy.Field()
+    text=scrapy.Field()
 
 class SiteItem(scrapy.Item):
-	body=scrapy.Field()
-	topic=scrapy.Field()
+    body=scrapy.Field()
+    topic=scrapy.Field()
 
 
