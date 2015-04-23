@@ -35,7 +35,7 @@ class LoginSpider(scrapy.Spider):
 
     
     def parse_topicpage (self, response):
-        print "in parse-...."18 Beiträg
+        print "in parse-...."
 		
         body=response.xpath('//body').extract()
         
@@ -49,11 +49,14 @@ class LoginSpider(scrapy.Spider):
         posts=response.xpath('//div[@class="postbody"]')
         for index, post in enumerate(posts):
                 
-            args=(index, post.xpath('.//p[@class="author"]//a/text()').extract()[0],post.xpath('.//div[@class="content"]/text()').extract(), post.xpath('.//p[@class="author"]/text()').extract()[1])
-            
-            print "post topic is post number %d is from %s and containts %s and timestamp %s \n \n" % args
-
-            
+            save_post=PostItem()
+            save_post["user"]=post.xpath('.//p[@class="author"]//a/text()').extract()[0]
+            save_post["order"]=index
+            save_post["text"]=post.xpath('.//div[@class="content"]/text()').extract() # das hier ist eine liste. musss einen string draus machen
+            save_post["text"]="".join(save_post["text"])
+            save_post["timestamp"]=post.xpath('.//p[@class="author"]/text()').extract()[1]
+            save_post["topic"]=site['topic']
+            print ("post topic is numer %d is from %s and contains %s and timestamp %s and topic %s" % (save_post["order"], save_post["user"], save_post["text"], save_post["timestamp"], save_post["topic"]))
 
 
 
