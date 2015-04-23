@@ -39,7 +39,7 @@ class LoginSpider(scrapy.Spider):
 		
         body=response.xpath('//body').extract()
         
-        site=Siteitem()
+        site=SiteItem()
         site['body']=body
         print site['body']
         topic=response.xpath('//div[@class="panel"]//h2/a/text()').extract()[0]

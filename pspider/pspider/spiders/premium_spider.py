@@ -35,7 +35,7 @@ class LoginSpider(scrapy.Spider):
 
     
     def parse_topicpage (self, response):
-        print "in parse-...."
+        print "in parse-...."18 Beiträg
 		
         body=response.xpath('//body').extract()
         
@@ -53,7 +53,7 @@ class LoginSpider(scrapy.Spider):
             
             print "post topic is post number %d is from %s and containts %s and timestamp %s \n \n" % args
 
-
+            
 
 
 

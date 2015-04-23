@@ -13,6 +13,8 @@ class PostItem(scrapy.Item):
     timestamp=scrapy.Field()
     topic=scrapy.Field()
     text=scrapy.Field()
+    order=scrapy.Field() # order of post in topic
+    
 
 class SiteItem(scrapy.Item):
     body=scrapy.Field()
