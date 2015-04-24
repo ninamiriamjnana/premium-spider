@@ -21,6 +21,9 @@ class Post (MySQLModel):
     user= ForeignKeyField (User)	
     topic= ForeignKeyField (Topic)
 
+class HTMLSite(MySQLModel):
+      body=TextField ()
+
 
 def create_tables():							# creates tables 
 	User.create_table()
