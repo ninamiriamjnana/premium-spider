@@ -1,4 +1,6 @@
-mysql_db= MySQLDatabase('arachnophobia', host='localhost', user='user', passwd='pw' )
+from peewee import *
+
+mysql_db= MySQLDatabase('arachnophobia', host='localhost', user='nina', passwd='pw' )
 
 class MySQLModel (Model):
 	class Meta:
@@ -25,8 +27,8 @@ class HTMLSite(MySQLModel):
       body=TextField (index=True)
 
 
-def create_tables():							# creates tables 
-	User.create_table()
+def create_tables():	
+    User.create_table()
     Topic.create_table()    
-	Post.create_table()    
+    Post.create_table()    
 	
