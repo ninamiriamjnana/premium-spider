@@ -5,6 +5,7 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
+from peewee import *
 from peeweemodels import *
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
@@ -12,6 +13,7 @@ from scrapy.http import Request
 
 
 class PeeweePipeline(object):
+
     def process_item (self, item, spider):
             
         text=item['post']
@@ -19,15 +21,17 @@ class PeeweePipeline(object):
         order=item['order']
         user=item['user']
         topic=item['topic']
+        body=item['body']
+        url=item['url']
 
        # als allererstes speicher ich die html seite
       #get HTMLSite
         try:
-            htmlsite=HTMLSite.get(HTMLSite.body == item['body'])
+            htmlpage=HTMLPage.get(HTMLPage.url== url)
 				
 	    # no HTMLSite? create one!
-	    except HTMLSite.DoesNotExist:
-	        htmlsite= HTMLSite.create(body = item['body'])  
+	    except HTMLPage.DoesNotExist:
+	        htmlpage= HTMLPage.create(body =body, url=url)  
 
        # ich fang mit denen an, von denen ich nachher die FKs brauche: topic und user  
        # danach schreib ich alles andere rein
