@@ -14,10 +14,8 @@ class PostItem(scrapy.Item):
     topic=scrapy.Field()
     text=scrapy.Field()
     order=scrapy.Field() # order of post in topic
-    
-
-class SiteItem(scrapy.Item):
     body=scrapy.Field()
     topic=scrapy.Field()
+    url=scrapy.Field()
 
 

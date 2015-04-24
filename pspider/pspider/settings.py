@@ -13,5 +13,10 @@ BOT_NAME = 'pspider'
 SPIDER_MODULES = ['pspider.spiders']
 NEWSPIDER_MODULE = 'pspider.spiders'
 
+ITEM_PIPELINES = {
+    'pspider.pipelines.PeeweePipeline': 300
+    }
+
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'pspider (+http://www.yourdomain.com)'
