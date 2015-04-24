@@ -1,6 +1,6 @@
 import scrapy
 
-from pspider.items import SiteItem, PostItem
+from pspider.items import PostItem
 
 class LoginSpider(scrapy.Spider):
     name = 'premium_login'
@@ -39,6 +39,7 @@ class LoginSpider(scrapy.Spider):
 		
         body=response.xpath('//body').extract()
         
+        url=response.url
        
         topic=response.xpath('//div[@class="panel"]//h2/a/text()').extract()[0]
        
@@ -54,6 +55,7 @@ class LoginSpider(scrapy.Spider):
             save_post["timestamp"]=post.xpath('.//p[@class="author"]/text()').extract()[1]
             save_post["topic"]=topic
             save_post["body"]=body
+            save_post["url"]=url
             print ("post topic is numer %d is from %s and contains %s and timestamp %s and topic %s" % (save_post["order"], save_post["user"], save_post["text"], save_post["timestamp"], save_post["topic"]))
             return save_post
 
