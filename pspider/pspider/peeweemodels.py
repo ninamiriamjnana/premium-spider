@@ -22,7 +22,7 @@ class Post (MySQLModel):
     topic= ForeignKeyField (Topic)
 
 class HTMLSite(MySQLModel):
-      body=TextField ()
+      body=TextField (index=True)
 
 
 def create_tables():							# creates tables 
