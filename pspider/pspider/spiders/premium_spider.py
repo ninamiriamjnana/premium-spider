@@ -57,7 +57,9 @@ class LoginSpider(scrapy.Spider):
             save_post["body"]=body
             save_post["url"]=url
             print ("post topic is numer %d is from %s and contains %s and timestamp %s and topic %s" % (save_post["order"], save_post["user"], save_post["text"], save_post["timestamp"], save_post["topic"]))
-            return save_post
+            yield save_post
+
+
 
 
 

@@ -16,7 +16,7 @@ class PeeweePipeline(object):
 
     def process_item (self, item, spider):
             
-        text=item['post']
+        text=item['text']
         timestamp=item['timestamp']
         order=item['order']
         user=item['user']
