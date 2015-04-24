@@ -39,13 +39,10 @@ class LoginSpider(scrapy.Spider):
 		
         body=response.xpath('//body').extract()
         
-        site=SiteItem()
-        site['body']=body
-        print site['body']
+       
         topic=response.xpath('//div[@class="panel"]//h2/a/text()').extract()[0]
        
-        site['topic']=topic 
-        print site['topic']       
+         
         posts=response.xpath('//div[@class="postbody"]')
         for index, post in enumerate(posts):
                 
@@ -55,7 +52,8 @@ class LoginSpider(scrapy.Spider):
             save_post["text"]=post.xpath('.//div[@class="content"]/text()').extract() # das hier ist eine liste. musss einen string draus machen
             save_post["text"]="".join(save_post["text"])
             save_post["timestamp"]=post.xpath('.//p[@class="author"]/text()').extract()[1]
-            save_post["topic"]=site['topic']
+            save_post["topic"]=topic
+            save_post["body"]=body
             print ("post topic is numer %d is from %s and contains %s and timestamp %s and topic %s" % (save_post["order"], save_post["user"], save_post["text"], save_post["timestamp"], save_post["topic"]))
 
 
