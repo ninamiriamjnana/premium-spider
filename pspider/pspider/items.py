@@ -16,5 +16,6 @@ class PostItem(scrapy.Item):
     order=scrapy.Field() # order of post in topic
     body=scrapy.Field()
     topic=scrapy.Field()
+    url=scrapy.Field()
 
 
