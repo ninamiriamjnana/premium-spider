@@ -42,7 +42,7 @@ class LoginSpider(scrapy.Spider):
        
         topic=response.xpath('//div[@class="panel"]//h2/a/text()').extract()[0]
        
-            
+         
         posts=response.xpath('//div[@class="postbody"]')
         for index, post in enumerate(posts):
                 
