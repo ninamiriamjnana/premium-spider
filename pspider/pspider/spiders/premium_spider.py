@@ -3,6 +3,7 @@ import scrapy
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors import LinkExtractor
 from scrapy.http.request import Request
+from scrapy.http.request.form import FormRequest
 
 from pspider.items import PostItem
 
@@ -55,7 +56,7 @@ class LoginSpider(CrawlSpider):
 
     
     def parse_topicpage (self, response):
-        print "in parse-...."
+        print "IN PARSE-...."
 		
         body=response.xpath('//body').extract()
         
