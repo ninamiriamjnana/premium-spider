@@ -1,7 +1,7 @@
 import scrapy
 
 from scrapy.contrib.spiders import CrawlSpider, Rule
-from scrapy.contrib.linkextractors import LinkExtractor
+from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.http.request import Request
 from scrapy.http.request.form import FormRequest
 
@@ -16,11 +16,11 @@ class LoginSpider(CrawlSpider):
     rules = (
          # Extract links matching 'category.php' (but not matching 'subsection.php')
         # and follow links from them (since no callback means follow=True by default).
-        Rule(LinkExtractor(allow=('/board/viewforum.php\?f=306', ))),
+        Rule(SgmlLinkExtractor(allow=('/board/viewforum.php\?f=306', follow=True ))),
        
 
         # Extract links matching 'item.php' and parse them with the spider's method parse_item
-        Rule(LinkExtractor(allow=(r'/board/viewforum.php\?f=[0-9]+\&t=[0-9]+', )), callback='parse_topicpage'),
+        Rule(SgmlLinkExtractor(allow=('/board/viewforum.php\?f=[0-9]+\&t=[0-9]+', )), callback='parse_topicpage'),
     )
         
 
