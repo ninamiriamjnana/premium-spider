@@ -79,9 +79,9 @@ class LoginSpider(CrawlSpider):
             save_post["topic"]=topic
             save_post["body"]=body
             save_post["url"]=url
-            save_post["pid"]=post.xpath('.//div[@class="post bg1"]//id/text()').extract()
+            save_post["pid"]=post.xpath('id').extract()
 
-            print ("post id is %s " % (save_post["pid"]))
+            print save_post["pid"]
             yield save_post
         
         posts_bg2=response.xpath('//div[@class="post bg2"]')
@@ -98,8 +98,8 @@ class LoginSpider(CrawlSpider):
             save_post["topic"]=topic
             save_post["body"]=body
             save_post["url"]=url
-            save_post["pid"]=post.xpath('.//div[@class="post bg2"]//id/text()').extract()
-            print ("post id  is %s " % (save_post["pid"]))
+            save_post["pid"]=post.xpath('id').extract()
+            print save_post["pid"]
             yield save_post
 
 

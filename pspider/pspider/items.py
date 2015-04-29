@@ -17,5 +17,6 @@ class PostItem(scrapy.Item):
     body=scrapy.Field()
     topic=scrapy.Field()
     url=scrapy.Field()
+    pid=scrapy.Field()
 
 
