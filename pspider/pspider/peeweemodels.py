@@ -31,5 +31,6 @@ class HTMLPage(MySQLModel):
 def create_tables():	
     User.create_table()
     Topic.create_table()    
-    Post.create_table()    
+    Post.create_table() 
+    HTMLPage.create_table()   
 	

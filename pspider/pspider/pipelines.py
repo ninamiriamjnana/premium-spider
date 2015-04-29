@@ -14,6 +14,8 @@ from scrapy.http import Request
 
 class PeeweePipeline(object):
 
+    
+
     def process_item (self, item, spider):
             
         text=item['text']
