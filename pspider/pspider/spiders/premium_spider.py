@@ -2,6 +2,7 @@ import scrapy
 
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors import LinkExtractor
+from scrapy.http.request import Request
 
 from pspider.items import PostItem
 
@@ -24,15 +25,15 @@ class LoginSpider(CrawlSpider):
 
 
     def start_requests(self):
-    yield Request(
-    url=self.login_page,
-    callback=self.login,
-    dont_filter=True
-    )
+        yield Request(
+        url=self.login_page,
+        callback=self.login,
+        dont_filter=True
+        )
 	
     def login(self, response):
     #"""Generate a login request."""
-    return FormRequest.from_response(response,
+        return FormRequest.from_response(response,
             formdata={'username': self.username, 'password': self.password},
             callback=self.check_login_response)     
 
