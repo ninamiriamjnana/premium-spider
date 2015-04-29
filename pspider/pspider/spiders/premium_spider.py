@@ -20,7 +20,7 @@ class LoginSpider(CrawlSpider):
        
 
         # Extract links matching 'item.php' and parse them with the spider's method parse_item
-        Rule(SgmlLinkExtractor(allow=(r'f=306\&t=\d+',), unique=True),callback='parse_topicpage'),
+        Rule(SgmlLinkExtractor(allow=(r'\&t=\d+',), deny=(r'\&p=\d+',), unique=True),callback='parse_topicpage'),
     )
         
 
