@@ -68,12 +68,10 @@ class LoginSpider(CrawlSpider):
        
         ipdb.set_trace()
          # kann nur class=post 
-        posts=response.xpath('//*[
-  contains( normalize-space( @class ), ' post ' )
-  or substring( normalize-space( @class ), 1, string-length( 'post' ) + 1 ) = 'post '
-  or substring( normalize-space( @class ), string-length( @class ) - string-length( 'post' ) ) = 'post'
-  or @class = 'post'
-]')
+        posts=response.xpath('//*[contains( normalize-space(@class), "post bg" )]')
+
+
+
         
         for index, post in enumerate(posts):
                 
@@ -88,6 +86,11 @@ class LoginSpider(CrawlSpider):
             save_post["body"]=body
             save_post["url"]=url
             save_post["pid"]=post.xpath('id').extract()
+
+#ipdb> post.xpath('.//ul[@class="profile-icons"]//li//a//@href').extract()[0]
+u#'./ucp.php?i=pm&mode=compose&action=quotepost&p=2295'
+# ok so krieg ich den link und dann mach ich noch eine string funktion und dann hab ich die id!!
+
 
             print save_post["pid"]
             yield save_post
