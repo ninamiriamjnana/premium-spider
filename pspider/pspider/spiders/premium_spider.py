@@ -1,11 +1,13 @@
 import scrapy
-
+import ipdb 
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.http.request import Request
 from scrapy.http.request.form import FormRequest
 
 from pspider.items import PostItem
+
+
 
 class LoginSpider(CrawlSpider):
     name = 'premium_login'
@@ -38,7 +40,7 @@ class LoginSpider(CrawlSpider):
             formdata={'username': self.username, 'password': self.password},
             callback=self.check_login_response)     
 
-   
+  
     
 
     def check_login_response(self, response):
@@ -64,10 +66,16 @@ class LoginSpider(CrawlSpider):
        
         topic=response.xpath('//div[@class="panel"]//h2/a/text()').extract()[0]
        
-         
-        posts_bg1=response.xpath('//div[@class="post bg1"]')
+        ipdb.set_trace()
+         # kann nur class=post 
+        posts=response.xpath('//*[
+  contains( normalize-space( @class ), ' post ' )
+  or substring( normalize-space( @class ), 1, string-length( 'post' ) + 1 ) = 'post '
+  or substring( normalize-space( @class ), string-length( @class ) - string-length( 'post' ) ) = 'post'
+  or @class = 'post'
+]')
         
-        for index, post in enumerate(posts_bg1):
+        for index, post in enumerate(posts):
                 
             save_post=PostItem()
            
@@ -83,24 +91,7 @@ class LoginSpider(CrawlSpider):
 
             print save_post["pid"]
             yield save_post
-        
-        posts_bg2=response.xpath('//div[@class="post bg2"]')
-        
-        for index, post in enumerate(posts_bg2):
-                
-            save_post=PostItem()
-           
-            save_post["user"]=post.xpath('.//p[@class="author"]//a/text()').extract()[0]
-            save_post["order"]=index
-            save_post["text"]=post.xpath('.//div[@class="content"]/text()').extract() # das hier ist eine liste. musss einen string draus machen
-            save_post["text"]="".join(save_post["text"])
-            save_post["timestamp"]=post.xpath('.//p[@class="author"]/text()').extract()[1]
-            save_post["topic"]=topic
-            save_post["body"]=body
-            save_post["url"]=url
-            save_post["pid"]=post.xpath('id').extract()
-            print save_post["pid"]
-            yield save_post
+       
 
 
 
