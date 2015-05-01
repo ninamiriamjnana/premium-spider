@@ -32,7 +32,7 @@ class PeeweePipeline(object):
             topic=item['topic']
             body=item['body']
             url=item['url']
-
+            pid=item['pid']
             # als allererstes speicher ich die html seite
             #get HTMLSite
             try:
@@ -66,7 +66,7 @@ class PeeweePipeline(object):
                     except Topic.DoesNotExist:
                         topic= Topic.create(name = item['topic'])
                     try:
-                        post=Post.get(Post.text==text, timestamp==timestamp)
+                        post=Post.get(Post.pid==pid)
 
                     except Post.DoesNotExist:
                         post=Post.create(text=text, timestamp=timestamp, order=order, topic=topic, user=user) 
