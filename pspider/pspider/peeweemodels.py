@@ -17,7 +17,8 @@ class Topic (MySQLModel):
 	name = CharField(index=True)
 
 class Post (MySQLModel):
-    text=CharField(index=True)
+    pid=IntegerField(index=True)
+    text=CharField()
     timestamp=CharField()
     order=IntegerField()
     user= ForeignKeyField (User)	
