@@ -17,6 +17,7 @@ ITEM_PIPELINES = {
     'pspider.pipelines.PeeweePipeline': 300
     }
 
+DOWNLOAD_DELAY = 0.25    # 250 ms of delay
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'pspider (+http://www.yourdomain.com)'
