@@ -18,7 +18,7 @@ class LoginSpider(CrawlSpider):
     rules = (
          # Extract links matching 'category.php' (but not matching 'subsection.php')
         # and follow links from them (since no callback means follow=True by default).
-        Rule(SgmlLinkExtractor(allow=('viewforum.php\?f=306' )), follow=True),
+        Rule(SgmlLinkExtractor(allow=('viewforum.php\?f=\d+' )), follow=True),
        
 
         # Extract links matching 'item.php' and parse them with the spider's method parse_item
