@@ -69,7 +69,7 @@ class PeeweePipeline(object):
                         post=Post.get(Post.pid==pid)
 
                     except Post.DoesNotExist:
-                        post=Post.create(text=text, timestamp=timestamp, order=order, topic=topic, user=user) 
+                        post=Post.create(text=text, timestamp=timestamp, order=order, topic=topic, user=user, pid=pid) 
 
               
                     
