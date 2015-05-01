@@ -66,7 +66,7 @@ class LoginSpider(CrawlSpider):
        
         topic=response.xpath('//div[@class="panel"]//h2/a/text()').extract()[0]
        
-        ipdb.set_trace()
+        #ipdb.set_trace()
          # kann nur class=post 
         posts=response.xpath('//*[contains( normalize-space(@class), "post bg" )]')
 
