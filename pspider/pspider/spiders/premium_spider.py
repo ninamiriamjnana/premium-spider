@@ -85,13 +85,10 @@ class LoginSpider(CrawlSpider):
             save_post["topic"]=topic
             save_post["body"]=body
             save_post["url"]=url
-            save_post["pid"]=post.xpath('id').extract()
-
-#ipdb> post.xpath('.//ul[@class="profile-icons"]//li//a//@href').extract()[0]
-u#'./ucp.php?i=pm&mode=compose&action=quotepost&p=2295'
-# ok so krieg ich den link und dann mach ich noch eine string funktion und dann hab ich die id!!
-
-
+            link=post.xpath('.//ul[@class="profile-icons"]//li//a//@href').extract()[0]
+            link=str(link)
+            x=link.split('p=')
+            save_post["pid"]=x[1]
             print save_post["pid"]
             yield save_post
        
