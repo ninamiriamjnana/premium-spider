@@ -23,6 +23,7 @@ class Post (MySQLModel):
     order=IntegerField()
     user= ForeignKeyField (User)	
     topic= ForeignKeyField (Topic)
+    htmlpage=ForeignKeyField (HTMLPage)
 
 class HTMLPage(MySQLModel):
       url=CharField(index=True)
