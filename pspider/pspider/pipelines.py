@@ -10,6 +10,7 @@ from peeweemodels import *
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
 
+from timestamp import get_date
 
 
 class PeeweePipeline(object):
@@ -33,6 +34,7 @@ class PeeweePipeline(object):
             body=item['body']
             url=item['url']
             pid=item['pid']
+	    date=get_date(timestamp)
             # als allererstes speicher ich die html seite
             #get HTMLSite
             try:
@@ -69,7 +71,7 @@ class PeeweePipeline(object):
                         post=Post.get(Post.pid==pid)
 
                     except Post.DoesNotExist:
-                        post=Post.create(text=text, timestamp=timestamp, order=order, topic=topic, user=user, pid=pid) 
+                        post=Post.create(text=text, timestamp=timestamp, date=date, order=order, topic=topic, user=user, pid=pid, htmlpage=htmlpage) 
 
               
                     
