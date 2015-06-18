@@ -30,6 +30,11 @@ class Post (MySQLModel):
 	topic= ForeignKeyField (Topic)
 	htmlpage=ForeignKeyField (HTMLPage)
 
+class TopicUserNode (MySQLModel):
+	original_id=IntegerField()
+	name=CharField()
+	typ=IntegerField()
+
 
 
 
