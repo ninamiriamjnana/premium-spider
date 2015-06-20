@@ -1,0 +1,1 @@
+mysql -u root --password=schneeflocke88 --database=arachnophobia --execute="select user.name as 'User', topic.name as 'Topic' from user inner join post on user.id=post.user_id inner join topic on post.topic_id=topic.id order by topic.name" -C > /home/nina/Dropbox/premium/query_results/topic_user.csv 
