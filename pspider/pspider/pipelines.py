@@ -12,6 +12,8 @@ from scrapy.http import Request
 
 from timestamp import get_date
 
+import datetime
+
 
 class PeeweePipeline(object):
 
@@ -34,7 +36,11 @@ class PeeweePipeline(object):
             body=item['body']
             url=item['url']
             pid=item['pid']
-	    date=get_date(timestamp)
+            date=get_date(timestamp)
+            mydate=datetime.datetime.strptime(date,"%Y-%b-%d") 
+
+
+
             # als allererstes speicher ich die html seite
             #get HTMLSite
             try:
@@ -47,6 +53,13 @@ class PeeweePipeline(object):
 
             # ich fang mit denen an, von denen ich nachher die FKs brauche: topic und user  
             # danach schreib ich alles andere rein**/"""
+
+            #jetzt speicher ich in date_tab
+            try:
+	            date_tab=Date_Tab.get(Date_Tab.year==mydate.year, Date_Tab.month==mydate.month, Date_Tab.day==mydate.day)
+		
+            except Date_Tab.DoesNotExist:
+ 	            date_tab=Date_Tab.create(year=mydate.year, month=mydate.month, day=mydate.day)	
                 
                 
             if not item['user']:
@@ -71,7 +84,7 @@ class PeeweePipeline(object):
                         post=Post.get(Post.pid==pid)
 
                     except Post.DoesNotExist:
-                        post=Post.create(text=text, timestamp=timestamp, date=date, order=order, topic=topic, user=user, pid=pid, htmlpage=htmlpage) 
+                        post=Post.create(text=text, timestamp=timestamp, date=date, order=order, topic=topic, user=user, pid=pid, htmlpage=htmlpage, date_tab=date_tab) 
 
               
                     
