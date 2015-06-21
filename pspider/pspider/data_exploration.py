@@ -7,13 +7,118 @@ rcParams.update({'figure.autolayout': True})
 
 import numpy as np
 
+import ipdb
+
+def yeartopic():
+    myquery=(Date_Tab.select(Date_Tab.id, Date_Tab.year, fn.Count(fn.Distinct(Topic.id)).alias('count')).join(Post).join(Topic).group_by(Date_Tab.year).order_by(Date_Tab.year))
+    
 
 
-def user_and_topic():
-    myquery=(User.select(User.id, User.name,Topic.name.alias('topic_name')).join(Post).join(Topic).naive().order_by(Topic.id))
+    year=[]
+    count_topic=[] 
+    x=myquery[0]
+    bleib_year=x.year
+    year.append(x.year)
+    zwischen_count=0  
+    frisch_aus_else=0 
+     
     for x in myquery:
-        x.name
-        x.topic_name
+        if x.year==bleib_year:
+            if frisch_aus_else==1:
+                zwischen_count+=aktueller_count
+            zwischen_count+=x.count
+            frisch_aus_else=0
+        
+        elif x.year!=bleib_year and frisch_aus_else==1:
+            #ipdb.set_trace() 
+            count_topic.append(aktueller_count)
+            year.append(x.year)
+            zwischen_count+=x.count
+            frisch_aus_else=0
+      
+        elif x.year!=bleib_year and frisch_aus_else==0:
+            #ipdb.set_trace() 
+            count_topic.append(zwischen_count) 
+            year.append(x.year)
+            bleib_year=x.year
+            zwischen_count=0 
+            aktueller_count=x.count 
+            frisch_aus_else=1
+    #ipdb.set_trace() 
+    
+    count_topic.append(zwischen_count)
+
+    print year
+    print count_topic
+
+
+
+
+def year_count_topic():
+    myquery=(Date_Tab.select(Date_Tab.id, Date_Tab.year, fn.Count(fn.Distinct(Topic.id)).alias('count')).join(Post).join(Topic).group_by(Date_Tab.year).order_by(Date_Tab.year))
+    
+
+
+    year=[]
+    count_topic=[] 
+    x=myquery[0]
+    bleib_year=x.year
+    year.append(x.year)
+    zwischen_count=0  
+    frisch_aus_else=0 
+     
+    for x in myquery:
+        if x.year==bleib_year:
+            if frisch_aus_else==1:
+                zwischen_count+=aktueller_count
+            zwischen_count+=x.count
+            frisch_aus_else=0
+        
+        elif x.year!=bleib_year and frisch_aus_else==1:
+            #ipdb.set_trace() 
+            count_topic.append(aktueller_count)
+            year.append(x.year)
+            zwischen_count+=x.count
+            frisch_aus_else=0
+      
+        elif x.year!=bleib_year and frisch_aus_else==0:
+            #ipdb.set_trace() 
+            count_topic.append(zwischen_count) 
+            year.append(x.year)
+            bleib_year=x.year
+            zwischen_count=0 
+            aktueller_count=x.count 
+            frisch_aus_else=1
+    #ipdb.set_trace() 
+    
+    count_topic.append(zwischen_count)
+    i=0
+    for x in count_topic:
+        i+=x
+    print i
+        
+      
+
+    fig= plt.figure(facecolor="white")
+    ax = fig.add_subplot(111, axisbg="white")
+    ax.spines["top"].set_visible(False)  
+    ax.spines["right"].set_visible(False) 
+    ax.get_xaxis().tick_bottom()  
+    ax.get_yaxis().tick_left() 
+    ax.set_title('Number of Topics per Year')
+    ax.set_xlabel('Year')
+    ax.set_ylabel('Number of Topics')
+    
+    index = np.arange(len(year))
+    bar_width = 0.35
+    
+    t=plt.bar(index, count_topic, color="#3F5D7D")
+    
+    plt.xticks(index + bar_width,year, rotation=90)
+    
+    plt.show()
+
+    
 
 def topic_count_user():
 
