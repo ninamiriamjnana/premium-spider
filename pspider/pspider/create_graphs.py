@@ -20,7 +20,7 @@ def create_u_dict():
 	helper=0
 
 	counter=myquery.count()
-
+    # ICH MACH MORGEN SO: ICH MACH DAS QUERY FÜR JEDES JAHR UND BEFÜLLE SO DIE LISTEN! DANN GEHTS NÄMLICH
 	for x in myquery:
 		#ipdb.set_trace()
 		uname_dict[x.id]=x.name
