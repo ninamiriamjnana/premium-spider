@@ -10,11 +10,22 @@ import numpy as np
 import ipdb
 
 def yeartopic():
-    myquery=(Date_Tab.select(Date_Tab.id, Date_Tab.year, fn.Count(fn.Distinct(Topic.id)).alias('count')).join(Post).join(Topic).group_by(Date_Tab.year).order_by(Date_Tab.year))
-    
-
-
+    yquery=(Date_Tab.select(fn.Distinct(Date_Tab.year)).order_by(Date_Tab.year))
     year=[]
+    for x in yquery:
+        year.append(x.year)
+    
+    for y in year:
+         tquery=(Topic.select(Date_Tab.year,fn.Count(fn.Distinct(Topic.id)).join(Post).join(Date_Tab).where(Date_Tab.year=='2015').group_by(Date_Tab.year))
+   
+
+myquery=(Date_Tab.select(Date_Tab.id, fn.Count(fn.Distinct(Topic.id)).alias('count')).join(Post).join(Topic).where(Date_Tab.year=='2015').group_by(Date_Tab.id))
+
+
+select distinct count(topic.id), date_tab.id from topic inner join post on topic.id=post.topic_id inner join date_tab on date_tab.id=post.date_tab_id where date_tab.year='2015'group by date_tab.id;
+
+
+    
     count_topic=[] 
     x=myquery[0]
     bleib_year=x.year

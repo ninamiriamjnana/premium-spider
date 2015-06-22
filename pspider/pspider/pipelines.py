@@ -14,7 +14,7 @@ from timestamp import get_date
 
 import datetime
 
-
+import ipdb
 class PeeweePipeline(object):
 
     def __init__(self):
@@ -22,6 +22,7 @@ class PeeweePipeline(object):
     
 
     def process_item (self, item, spider):
+        ipdb.set_trace() 
         value_id=item['pid']
         if item['pid'] in self.ids_seen:
             raise DropItem("Duplicate item found")
