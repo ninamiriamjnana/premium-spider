@@ -5,6 +5,8 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
+
+
 from peewee import *
 from peeweemodels import *
 from scrapy.exceptions import DropItem
@@ -15,6 +17,12 @@ from timestamp import get_date
 import datetime
 
 import ipdb
+
+import locale
+# German locale
+locale.setlocale(locale.LC_ALL, 'de_DE.utf8')
+
+
 class PeeweePipeline(object):
 
     def __init__(self):
@@ -22,7 +30,7 @@ class PeeweePipeline(object):
     
 
     def process_item (self, item, spider):
-        ipdb.set_trace() 
+        #ipdb.set_trace() 
         value_id=item['pid']
         if item['pid'] in self.ids_seen:
             raise DropItem("Duplicate item found")
@@ -38,7 +46,7 @@ class PeeweePipeline(object):
             url=item['url']
             pid=item['pid']
             date=get_date(timestamp)
-            mydate=datetime.datetime.strptime(date,"%Y-%b-%d") 
+            mydate=datetime.datetime.strptime(date,"%Y-%b-%d") #hier hab ich ein unicode problem!
 
 
 

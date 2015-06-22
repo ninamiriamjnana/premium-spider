@@ -9,6 +9,10 @@ import numpy as np
 
 import ipdb
 
+
+#########
+select count(distinct topic.id), date_tab.year from topic inner join post on post.topic_id=topic.id inner join date_tab on date_tab.id=post.date_tab_id group by date_tab.year; 
+###################
 def yeartopic():
     yquery=(Date_Tab.select(fn.Distinct(Date_Tab.year)).order_by(Date_Tab.year))
     year=[]
