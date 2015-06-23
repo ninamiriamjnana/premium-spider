@@ -9,10 +9,18 @@ import numpy as np
 
 import ipdb
 
+import csv
 
-#########
+import itertools
+
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
+"""
 select count(distinct topic.id), date_tab.year from topic inner join post on post.topic_id=topic.id inner join date_tab on date_tab.id=post.date_tab_id group by date_tab.year; 
-###################
+"""
+"""
 def yeartopic():
     yquery=(Date_Tab.select(fn.Distinct(Date_Tab.year)).order_by(Date_Tab.year))
     year=[]
@@ -65,7 +73,6 @@ select distinct count(topic.id), date_tab.id from topic inner join post on topic
 
     print year
     print count_topic
-
 
 
 
@@ -133,7 +140,54 @@ def year_count_topic():
     
     plt.show()
 
+"""    
+
+def user_count_topic():
+	myquery=(User.select(User.id, User.name, fn.Count(fn.Distinct(Topic.id)).alias('count')).join(Post).join(Topic).group_by(User.id).order_by(fn.Count(fn.Distinct(Topic.id)).desc()))	
+
+	namen=[]
+	namen_id=[]
+	count_x=[]
+	count_q=0
     
+	for x in myquery:
+		count_x.append(x.count)
+		print x.id
+        
+		print x.count
+		namen_id.append(x.id)
+		namen.append(x.name)
+		count_q+=1
+	keys = namen
+	values = count_x
+	adict = dict(itertools.izip(keys,values))
+
+	for x in adict:
+		print x
+
+	with open('user_count_topic.csv', 'wb') as f:
+		writer = csv.writer(f)
+		for key, value in adict.items():
+			writer.writerow([key, value])
+   
+   
+	fig= plt.figure(facecolor="white")
+	ax = fig.add_subplot(111, axisbg="white")
+	ax.spines["top"].set_visible(False)  
+	ax.spines["right"].set_visible(False) 
+	ax.get_xaxis().tick_bottom()  
+	ax.get_yaxis().tick_left() 
+	ax.set_title('Number of Topics per User')
+	ax.set_xlabel('User')
+	ax.set_ylabel('Number of Topics')
+	index = np.arange(count_q)
+	bar_width = 0.35
+    
+	t=plt.bar(index, count_x, color="#3F5D7D")
+    
+	plt.xticks(index + bar_width,namen, rotation=90)
+    
+	plt.show()
 
 def topic_count_user():
 
@@ -153,6 +207,19 @@ def topic_count_user():
         namen_id.append(x.id)
         namen.append(x.name)
 
+    # muss namen und count_x in ein dict schreiben?
+
+    keys = namen
+    values = count_x
+    adict = dict(itertools.izip(keys,values))
+
+    for x in adict:
+        print x
+
+    with open('topic_count_user.csv', 'wb') as f:
+        writer = csv.writer(f)
+        for key, value in adict.items():
+            writer.writerow([key, value])
    
     fig= plt.figure(facecolor="white")
     ax = fig.add_subplot(111, axisbg="white")
@@ -193,6 +260,19 @@ def topic_count_posts():
         namen_id.append(x.id)
         namen.append(x.name)
 
+    keys = namen
+    values = count_x
+    adict = dict(itertools.izip(keys,values))
+
+    for x in adict:
+        print x
+
+    with open('topic_count_posts.csv', 'wb') as f:
+        writer = csv.writer(f)
+        for key, value in adict.items():
+            writer.writerow([key, value])
+   
+
    
     fig= plt.figure(facecolor="white")
     ax = fig.add_subplot(111, axisbg="white")
@@ -222,10 +302,25 @@ def user_count_posts():
     namen=[]
     namen_id=[]
     count_x=[]
+    len_q=0
     for x in myquery:
         namen_id.append(x.id)
         namen.append(x.name)
         count_x.append(x.count)
+        len_q+=1
+
+    keys = namen
+    values = count_x
+    adict = dict(itertools.izip(keys,values))
+
+    for x in adict:
+        print x
+
+    with open('user_count_posts.csv', 'wb') as f:
+        writer = csv.writer(f)
+        for key, value in adict.items():
+            writer.writerow([key, value])
+   
 
     fig= plt.figure(facecolor="white")
     ax = fig.add_subplot(111, axisbg="white")
@@ -237,7 +332,7 @@ def user_count_posts():
     ax.set_title('Number of Posts per User')
     ax.set_xlabel('User')
     ax.set_ylabel('Number of Posts')
-    index = np.arange(44)
+    index = np.arange(len_q)
     bar_width = 0.35
     
     t=plt.bar(index, count_x, color="#3F5D7D")
